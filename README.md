@@ -1,6 +1,6 @@
 # Robotshambo
 
-![robots battling](images/robotshambo.png)
+<img src="images/robotshambo.png" width="500" height="500">
 
 ## Introduction
 Robotshambo aims to explore the capabilities of neuro-evolution applied to the classic game of Rock-Paper-Scissors. This project employs various forms of neural networks to model intelligent agents and observes how they evolve to play the game more optimally.
