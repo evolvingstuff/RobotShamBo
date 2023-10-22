@@ -1,7 +1,7 @@
 seed = 1234
 evotorch_seed = 1234
-deterministic_matches = True
-allow_model_rng_access = False
+deterministic_matches = False
+allow_model_rng_access = True
 warmup_rounds = 0
 total_rounds = 50
 popsize = 250

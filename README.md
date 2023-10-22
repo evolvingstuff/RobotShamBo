@@ -18,13 +18,13 @@ RobotShamBo aims to explore the capabilities of neuro-evolution applied to the c
 Clone the repository:
 
 ```
-git clone https://github.com/evolvingstuff/robotshambo.git
+git clone https://github.com/evolvingstuff/RobotShamBo.git
 ```
 
 Navigate to the project directory and install the required packages:
 
 ```
-cd robotshambo
+cd RobotShamBo
 pip install -r requirements.txt
 ```
 

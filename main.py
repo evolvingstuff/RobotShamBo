@@ -7,7 +7,7 @@ from iocaine import Iocaine
 
 
 # assumes only player1 is being evolved
-player1_class = StaticOpponent
+player1_class = RNN  # StaticOpponent
 
 
 def get_hall_of_champions():
