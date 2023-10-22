@@ -46,9 +46,13 @@ You can customize the evolutionary parameters and neural network architecture in
 - **Simulation**: Interactive mode to play against the trained agents.
 - **Visualization**: Tools for visualizing decision-making strategies and evolution over time.
 
-## Contributing
 
-Contributions are welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) for more information.
+## Libraries Used
+
+- **EvoTorch**: This project relies on the EvoTorch library for various evolutionary algorithms in Torch. 
+  - **License**: Apache License 2.0. You can view the full license details in the [EvoTorch repository](https://github.com/nnaisense/evotorch/blob/master/LICENSE).
+  - **Repository**: [EvoTorch GitHub](https://github.com/nnaisense/evotorch)
+
 
 ## License
 
