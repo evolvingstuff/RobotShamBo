@@ -1,0 +1,4 @@
+.idea/*
+venv/*
+TODO.txt
+__pycache__/*
