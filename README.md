@@ -1,9 +1,9 @@
-# Robotshambo
+# RobotShamBo
 
 <img src="images/robotshambo.png" width="500" height="500">
 
 ## Introduction
-Robotshambo aims to explore the capabilities of neuro-evolution applied to the classic game of Rock-Paper-Scissors. This project employs various forms of neural networks to model intelligent agents and observes how they evolve to play the game more optimally.
+RobotShamBo aims to explore the capabilities of neuro-evolution applied to the classic game of Rock-Paper-Scissors. This project employs various forms of neural networks to model intelligent agents and observes how they evolve to play the game more optimally.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -53,3 +53,8 @@ Contributions are welcome! Please read the [Contributing Guidelines](CONTRIBUTIN
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- **Iocaine Powder Algorithm Implementation**: This project makes use of the Iocaine Powder algorithm as found [here](http://davidbau.com/downloads/rps/rps-iocaine.py), by [David Bau](http://davidbau.com/). This is, in turn, an adaptation of the original code/algorithm, written by Dan Egnor. We have made modifications to fit the requirements of the RobotShamBo project.
+

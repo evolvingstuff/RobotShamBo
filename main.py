@@ -1,9 +1,9 @@
-from config import *
 from evotorch import Problem
 from evotorch.algorithms import SNES
 from evotorch.logging import StdOutLogger, PandasLogger
 import matplotlib.pyplot as plt
 from players import *
+from iocaine import Iocaine
 
 
 # assumes only player1 is being evolved
@@ -14,7 +14,7 @@ def get_hall_of_champions():
     return [Iocaine()]
 
 
-def compete(x: torch.Tensor) -> torch.Tensor:
+def tournament(x: torch.Tensor) -> torch.Tensor:
     combined_score = 0
     for player2 in get_hall_of_champions():
         if deterministic_matches:
@@ -23,7 +23,8 @@ def compete(x: torch.Tensor) -> torch.Tensor:
         player1_score = 0
         player2_score = 0
         draw_count = 0
-        player1 = player1_class(x)
+        player1 = player1_class()
+        player1.set_parameters(x)
         last_player1_action = None
         last_player2_action = None
         for round_num in range(total_rounds):
@@ -60,12 +61,12 @@ def main():
     torch.manual_seed(seed)
 
     # assumes only player1 is being evolved
-    dim = player1_class.get_dim()
+    dim = player1_class().get_dim()
 
     # # Declare the objective function
     problem = Problem(
         "max",
-        compete,
+        tournament,
         initial_bounds=(-initial_bounds, initial_bounds),
         solution_length=dim,
         vectorized=False,
