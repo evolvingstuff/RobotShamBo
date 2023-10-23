@@ -3,6 +3,7 @@
 <img src="images/robotshambo.png" width="500" height="500">
 
 ## Introduction
+
 RobotShamBo aims to explore the capabilities of neuro-evolution applied to the classic game of Rock-Paper-Scissors. This project employs various forms of neural networks to model intelligent agents and observes how they evolve to play the game more optimally.
 
 This project uses an implementation of Iocaine Powder, the winning solution of the first edition of the international RoShambo competition.
@@ -45,13 +46,14 @@ You can customize the evolutionary parameters and neural network architecture in
 
 ## Features
 
-- [x] **Evolutionary Algorithms**: Use evolutionary algorithms to evolve optimal decision-making strategies.
-- [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add transformers)
+- [x] **Evolutionary Algorithms**: Use evolutionary algorithms (currently configured with SNES) to evolve optimal decision-making strategies.
+- [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add Transformers, CNNs, etc..)
 
-## Features wishlist
+## TODO
 
+- [ ] **Vectorization / GPU support**
 - [ ] **Reinforcement Learning**: Train agents using popular RL algorithms like Q-Learning and DQN.
-- [ ] **Simulation**: Interactive mode to play against the trained agents.
+- [ ] **Simulation web app**: Interactive mode to play against the trained agents.
 - [ ] **Visualization**: Tools for visualizing decision-making strategies and their evolution over time.
 
 
