@@ -7,11 +7,12 @@ from iocaine import Iocaine
 
 
 # assumes only player1 is being evolved
-player1_class = RNN  # StaticOpponent
+player1_class = Rnn
 
 
 def get_hall_of_champions():
     return [Iocaine()]
+    # return [Iocaine(), RandomPlayer()]
 
 
 def tournament(x: torch.Tensor) -> torch.Tensor:

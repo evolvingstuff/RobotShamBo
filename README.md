@@ -5,13 +5,18 @@
 ## Introduction
 RobotShamBo aims to explore the capabilities of neuro-evolution applied to the classic game of Rock-Paper-Scissors. This project employs various forms of neural networks to model intelligent agents and observes how they evolve to play the game more optimally.
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+This project uses an implementation of Iocaine Powder, the winning solution of the first edition of the international RoShambo competition.
+The neural networks are evaluated using their performance against Iocaine Powder, and steadily learn to outperform it.
+
+One innovation I have added here is that the rewards for winning with Rock, Paper, or Scissors are *configurable*, and do not have to be equal.
+In fact, injecting some form of asymmetry in the rewards appears to be crucial to help the population escape from Nash equilibrium strategy of always choosing randomly.
+This is because if one player chooses the pure random strategy, the other player can beat it by always playing the choice with the highest reward.
+And that in turn can be countered by whatever beats that choice, etc.. etc.. by removing a simple and stable behavior that (originally) could not be exploited,
+that dead end attractor is removed from the fitness landscape.
+
+An example of improved fitness over 1000 generations vs Iocaine Powder:
+
+<img src="images/fitness-over-time.png" width="250" height="250">
 
 ## Installation
 
@@ -36,15 +41,18 @@ To run the main program:
 python main.py
 ```
 
-You can customize the evolutionary parameters and neural network architecture in `config.py`.
+You can customize the evolutionary parameters and neural network architecture in `config.py` and `players.py`, respectively.
+
+## Features
+
+- [x] **Evolutionary Algorithms**: Use evolutionary algorithms to evolve optimal decision-making strategies.
+- [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add transformers)
 
 ## Features wishlist
 
-- **Evolutionary Algorithms**: Implement evolutionary algorithms to evolve optimal decision-making strategies.
-- **Reinforcement Learning**: Train agents using popular RL algorithms like Q-Learning and DQN.
-- **Neural Networks**: Utilize various architectures including Feedforward, LSTM, and ConvNets.
-- **Simulation**: Interactive mode to play against the trained agents.
-- **Visualization**: Tools for visualizing decision-making strategies and evolution over time.
+- [ ] **Reinforcement Learning**: Train agents using popular RL algorithms like Q-Learning and DQN.
+- [ ] **Simulation**: Interactive mode to play against the trained agents.
+- [ ] **Visualization**: Tools for visualizing decision-making strategies and their evolution over time.
 
 
 ## Libraries Used
