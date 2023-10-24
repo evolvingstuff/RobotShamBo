@@ -1,13 +1,9 @@
 from evotorch import Problem
 from evotorch.algorithms import SNES
-from evotorch.logging import StdOutLogger, PandasLogger
+from evotorch.logging import StdOutLogger, PandasLogger, PicklingLogger
 import matplotlib.pyplot as plt
-from players import *
+from config_agent import *
 from iocaine import Iocaine
-
-
-# assumes only player1 is being evolved
-player1_class = Rnn
 
 
 def get_hall_of_champions():
@@ -52,7 +48,6 @@ def tournament(x: torch.Tensor) -> torch.Tensor:
             last_player1_action = player1_action
             last_player2_action = player2_action
         combined_score += player1_score - player2_score
-        # print(f"Score: player1 = {player1_score}, player2 = {player2_score}, Draws = {draw_count}")
     return torch.tensor(combined_score)
 
 
@@ -78,8 +73,10 @@ def main():
     # Initialize the SNES algorithm to solve the problem
     searcher = SNES(problem, popsize=popsize, stdev_init=stdev_init)
 
-    # Initialize a standard output logger, and a pandas logger
+    # Initialize loggers
     _ = StdOutLogger(searcher, interval=log_interval)
+    _ = PicklingLogger(searcher, interval=pickle_interval, directory='data/', prefix='agent',
+                       after_first_step=False, verbose=False)
     pandas_logger = PandasLogger(searcher)
 
     # Run SNES for the specified amount of generations
