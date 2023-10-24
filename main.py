@@ -3,17 +3,14 @@ from evotorch.algorithms import SNES
 from evotorch.logging import StdOutLogger, PandasLogger, PicklingLogger
 import matplotlib.pyplot as plt
 from config_agent import *
-from iocaine import Iocaine
-
-
-def get_hall_of_champions():
-    return [Iocaine()]
-    # return [Iocaine(), RandomPlayer()]
 
 
 def tournament(x: torch.Tensor) -> torch.Tensor:
+    """
+    Compete against multiple opponents, with possibly asymmetric rewards
+    """
     combined_score = 0
-    for player2 in get_hall_of_champions():
+    for player2 in opponents:
         if deterministic_matches:
             random.seed(seed)
             torch.manual_seed(seed)
@@ -52,14 +49,19 @@ def tournament(x: torch.Tensor) -> torch.Tensor:
 
 
 def main():
+    """
+    Initialize evolutionary main loop
+    """
+
     print('Robotshambo')
+
     random.seed(seed)
     torch.manual_seed(seed)
 
-    # assumes only player1 is being evolved
+    # Assumes only player1 is being evolved
     dim = player1_class().get_dim()
 
-    # # Declare the objective function
+    # Declare the objective function
     problem = Problem(
         "max",
         tournament,

@@ -1,0 +1,25 @@
+img {
+    width: 250px;
+    height: 250px;
+    display: block;
+    margin: 0 auto;
+}
+
+#tally {
+    font-size: 36px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.win {
+    outline: 3px solid limegreen;
+}
+
+.lose {
+    outline: 3px solid tomato;
+}
+
+.draw {
+    outline: 3px solid grey;
+}
+

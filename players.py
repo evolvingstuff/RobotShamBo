@@ -1,6 +1,5 @@
 import random
 from abc import ABC, abstractmethod
-import math
 import torch
 import torch.nn.functional as F
 from config import *
@@ -10,6 +9,44 @@ class Player(ABC):
     @abstractmethod
     def move(self, last_opponent_action: int) -> int:
         pass
+
+
+class ConstantPlayer(Player):
+    """
+    Always play same move
+    """
+    def __init__(self, constant_choice):
+        self.constant_choice = constant_choice
+
+    def move(self, last_opponent_action):
+        return self.constant_choice
+
+
+class RandomStrategyChangePlayer(Player):
+    """
+    Switches strategy with probability p
+    """
+    def __init__(self, p=0.1):
+        self.p = p
+        self.choice = random.randint(0, 2)
+
+    def move(self, last_opponent_action):
+        if random.random() < self.p:
+            self.choice = random.randint(0, 2)
+        return self.choice
+
+
+class RotatingPlayer(Player):
+    """
+    Rock, paper, scissors, rock, paper, scissors, ...
+    """
+    def __init__(self):
+        self.round_num = 0
+
+    def move(self, last_opponent_action):
+        choice = self.round_num % 3
+        self.round_num += 1
+        return choice
 
 
 class RandomPlayer(Player):

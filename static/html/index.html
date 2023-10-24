@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RobotShamBo</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <div class="choices">
+        <img class="buttons" src="/images/rock.png" id="rock" onmousedown="makeChoice('rock')">
+        <img class="buttons" src="/images/paper.png" id="paper" onmousedown="makeChoice('paper')">
+        <img class="buttons" src="/images/scissors.png" id="scissors" onmousedown="makeChoice('scissors')">
+    </div>
+    <div id="tally">
+        Wins: <span id="wins">0</span> |
+        Losses: <span id="losses">0</span> |
+        Draws: <span id="draws">0</span>
+    </div>
+    <script src="/js/app.js"></script>
+</body>
+</html>

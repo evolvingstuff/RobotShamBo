@@ -25,4 +25,16 @@ score_weights = {
     'scissors': 1.0
 }
 
+choice_to_id = {
+    'rock': 0,
+    'paper': 1,
+    'scissors': 2
+}
+
+id_to_choice = {
+    0: 'rock',
+    1: 'paper',
+    2: 'scissors'
+}
+
 
