@@ -88,7 +88,7 @@ def main():
     # Get the progress of the evolution into a DataFrame with the
     # help of the PandasLogger, and then plot the progress.
     pandas_frame = pandas_logger.to_dataframe()
-    pandas_frame["best_eval"].plot()
+    pandas_frame[visualization_metric].plot()
     plt.show()
 
 
