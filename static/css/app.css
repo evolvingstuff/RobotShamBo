@@ -3,6 +3,8 @@ img {
     height: 250px;
     display: block;
     margin: 0 auto;
+    user-drag: none;
+    -webkit-user-drag: none;
 }
 
 #tally {
