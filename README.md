@@ -6,14 +6,14 @@
 
 RobotShamBo aims to explore the capabilities of neuro-evolution applied to the classic game of Rock-Paper-Scissors. This project employs various forms of neural networks to model intelligent agents and observes how they evolve to play the game more optimally.
 
-This project uses an implementation of Iocaine Powder, the winning solution of the first edition of the international RoShambo competition.
+This project uses an implementation of Iocaine Powder, the [winning solution](https://web.archive.org/web/20110810213237/http://webdocs.cs.ualberta.ca/~darse/rsb-results1.html) of the first edition of the international RoShamBo competition.
 The neural networks are evaluated using their performance against Iocaine Powder, and steadily learn to outperform it.
 
 One innovation I have added here is that the rewards for winning with Rock, Paper, or Scissors are *configurable*, and do not have to be equal.
-In fact, injecting some form of asymmetry in the rewards appears to be crucial to help the population escape from Nash equilibrium strategy of always choosing randomly.
+In fact, injecting some form of asymmetry in the rewards appears to be crucial to help the population escape from the [Nash equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) strategy of always choosing randomly.
 This is because if one player chooses the pure random strategy, the other player can beat it by always playing the choice with the highest reward.
 And that in turn can be countered by whatever beats that choice, etc.. etc.. by removing a simple and stable behavior that (originally) could not be exploited,
-that dead end attractor is removed from the fitness landscape.
+that dead end attractor is removed from the [fitness landscape](https://en.wikipedia.org/wiki/Fitness_landscape).
 
 An example of improved fitness over 1000 generations vs Iocaine Powder and asymmetric rewards:
 
@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-To run the main program (evolutionary loop):
+To run the main program (the evolutionary loop):
 
 ```
 python main.py
@@ -59,7 +59,7 @@ and navigate to [http://localhost:8080/](http://localhost:8080/).
 <img src="images/web-app.png" height="400">
 
 
-You can customize the evolutionary parameters and neural network architecture in `config.py` and `players.py`, respectively.
+You can customize the evolutionary parameters and neural network architectures in `config.py` and `players.py`, respectively.
 
 ## Features
 
