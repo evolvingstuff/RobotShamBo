@@ -16,6 +16,7 @@ SCISSORS = 2
 # mean_eval | pop_best_eval | median_eval | best_eval | worst_eval
 visualization_metric = 'median_eval'
 hidden_dim = 25
+champion_type = 'center'  # 'best'
 
 # allows the introduction of asymmetries that destabilize
 #  the trivial always-random strategy
