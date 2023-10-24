@@ -10,7 +10,8 @@ def tournament(x: torch.Tensor) -> torch.Tensor:
     Compete against multiple opponents, with possibly asymmetric rewards
     """
     combined_score = 0
-    for player2 in opponents:
+    for player2_class in opponent_classes:
+        player2 = player2_class()
         if deterministic_matches:
             random.seed(seed)
             torch.manual_seed(seed)
