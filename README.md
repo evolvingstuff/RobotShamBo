@@ -36,10 +36,16 @@ pip install -r requirements.txt
 
 ## Usage
 
-To run the main program:
+To run the main program (evolutionary loop):
 
 ```
 python main.py
+```
+
+To play against the evolved champion in the CLI:
+
+```
+python simulate_cli.py
 ```
 
 You can customize the evolutionary parameters and neural network architecture in `config.py` and `players.py`, respectively.
@@ -48,12 +54,13 @@ You can customize the evolutionary parameters and neural network architecture in
 
 - [x] **Evolutionary Algorithms**: Use evolutionary algorithms (currently configured with SNES) to evolve optimal decision-making strategies.
 - [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add Transformers, CNNs, etc..)
+- [X] **Simulation CLI**: Interactive mode to play against the evolved champion in the CLI.
 
 ## TODO
 
 - [ ] **Vectorization / GPU support**
 - [ ] **Reinforcement Learning**: Train agents using popular RL algorithms like Q-Learning and DQN.
-- [ ] **Simulation web app**: Interactive mode to play against the trained agents.
+- [ ] **Simulation web app**: Interactive mode to play against the evolved champion in the browser.
 - [ ] **Visualization**: Tools for visualizing decision-making strategies and their evolution over time.
 
 
