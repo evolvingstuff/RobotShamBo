@@ -21,28 +21,24 @@ class RandomPlayer(Player):
         return random.randint(0, 2)
 
 
-class RockBiasedRandomPlayer(Player):
+class BiasedRandomPlayer(Player):
     """
-    Similar to the RandomPlayer, but can learn to favor Rock more
-    or less than the other possible actions.
+    Similar to the RandomPlayer, but can learn to stochastically favor
+    certain actions more than others
     """
     def __init__(self):
-        self.bias = 0
+        self.bias = None
 
     def get_dim(self):
-        return 1
+        return 3
 
     def set_parameters(self, x: torch.Tensor):
-        self.bias = x.item()
+        self.bias = x
 
     def move(self, last_opponent_action):
-        def sig(x):
-            return 1 / (1 + math.e**(-x))
-        p = sig(self.bias)
-        if random.random() < p:
-            return ROCK
-        else:
-            return random.randint(1, 2)
+        softmax_output = F.softmax(self.bias)
+        choice = torch.multinomial(softmax_output, 1).item()
+        return choice
 
 
 class Rnn(Player):
@@ -53,7 +49,7 @@ class Rnn(Player):
     def __init__(self):
         self.x = None
         self.input_dim = 6
-        self.hidden_dim = 25
+        self.hidden_dim = hidden_dim
         self.batch_size = 1
         self.rnn = torch.nn.LSTMCell(self.input_dim, self.hidden_dim)
         self.readout = torch.nn.Linear(self.hidden_dim, 3)
@@ -111,7 +107,7 @@ class RnnMeta(Player):
     def __init__(self):
         self.x = None
         self.input_dim = 9
-        self.hidden_dim = 25
+        self.hidden_dim = hidden_dim
         self.batch_size = 1
         self.rnn = torch.nn.LSTMCell(self.input_dim, self.hidden_dim)
         self.readout = torch.nn.Linear(self.hidden_dim, 3)
@@ -171,3 +167,59 @@ class RnnMeta(Player):
             meta_shifted_choice = (choice + meta_shift) % 3
             assert 0 <= meta_shifted_choice <= 2, f'invalid shifted_choice {meta_shifted_choice}'
             return meta_shifted_choice
+
+
+class RnnRng(Player):
+    """
+    Similar to the basic Rnn, but with the addition of input from a
+    random number generator
+    """
+    def __init__(self):
+        self.x = None
+        self.input_dim = 7
+        self.hidden_dim = hidden_dim
+        self.batch_size = 1
+        self.rnn = torch.nn.LSTMCell(self.input_dim, self.hidden_dim)
+        self.readout = torch.nn.Linear(self.hidden_dim, 3)
+        self.h = torch.zeros(self.batch_size, self.hidden_dim)
+        self.c = torch.zeros(self.batch_size, self.hidden_dim)
+        self.my_last_action = torch.zeros(3)
+        self.rnn.eval()
+        self.readout.eval()
+
+    def get_dim(self):
+        p1 = sum(p.numel() for p in self.rnn.parameters())
+        p2 = sum(p.numel() for p in self.readout.parameters())
+        return p1 + p2
+
+    def set_parameters(self, x: torch.Tensor):
+        pointer = 0
+        for param in self.rnn.parameters():
+            num_elements = param.numel()
+            param_vector = x[pointer:pointer + num_elements]
+            param.data = param_vector.view(param.shape)
+            pointer += num_elements
+        for param in self.readout.parameters():
+            num_elements = param.numel()
+            param_vector = x[pointer:pointer + num_elements]
+            param.data = param_vector.view(param.shape)
+            pointer += num_elements
+
+    def move(self, last_opponent_action: int):
+        with torch.no_grad():
+            op = torch.zeros(3)
+            if last_opponent_action is not None:
+                op[last_opponent_action] = 1.0
+            rng = torch.tensor([random.random()])
+            x = torch.hstack((op, self.my_last_action, rng)).reshape((self.batch_size, -1))
+            self.h, self.c = self.rnn(x, (self.h, self.c))
+            output = self.readout(self.h)
+            if allow_model_rng_access:
+                softmax_output = F.softmax(output)
+                choice = torch.multinomial(softmax_output, 1).item()
+            else:
+                choice = output.argmax().item()
+            self.my_last_action = torch.zeros(3)
+            self.my_last_action[choice] = 1.0
+            assert 0 <= choice <= 2, f'invalid choice {choice}'
+            return choice
