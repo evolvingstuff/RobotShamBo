@@ -1,12 +1,9 @@
-body {
-    padding-top: 50px;
-}
-
 img {
-    width: 250px;
-    height: 250px;
+    margin: 50px auto 0;
+    width: 100%;
+    max-width: 250px;
+    height: auto;
     display: block;
-    margin: 0 auto;
     user-drag: none;
     -webkit-user-drag: none;
 }
@@ -48,5 +45,16 @@ img {
 .github-icon:hover {
     color: #555;
 }
+
+/* Styles for screens with a max-width of 600px (common breakpoint for mobile devices) */
+@media screen and (max-width: 600px) {
+    img {
+        max-width: 150px; /* Adjust based on your preference for mobile */
+    }
+    #tally {
+        font-size: 24px; /* Reduce font size for mobile */
+    }
+}
+
 
 
