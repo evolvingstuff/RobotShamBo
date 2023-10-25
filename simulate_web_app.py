@@ -56,4 +56,4 @@ def play_rps(player_choice):
 
 if __name__ == "__main__":
     app_with_sessions = SessionMiddleware(app, session_opts)
-    run(app=app_with_sessions, host='localhost', port=8080)
+    run(app=app_with_sessions, host='0.0.0.0', port=8080)
