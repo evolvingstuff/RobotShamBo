@@ -3,6 +3,7 @@ from evotorch.algorithms import SNES
 from evotorch.logging import StdOutLogger, PandasLogger, PicklingLogger
 import matplotlib.pyplot as plt
 from config_agent import *
+from utils import evaluate
 
 
 def tournament(x: torch.Tensor) -> torch.Tensor:
@@ -15,37 +16,9 @@ def tournament(x: torch.Tensor) -> torch.Tensor:
         if deterministic_matches:
             random.seed(seed)
             torch.manual_seed(seed)
-        player1_score = 0
-        player2_score = 0
-        draw_count = 0
         player1 = player1_class()
         player1.set_parameters(x)
-        last_player1_action = None
-        last_player2_action = None
-        for round_num in range(total_rounds):
-            player1_action = player1.move(last_player2_action)
-            player2_action = player2.move(last_player1_action)
-            if round_num >= warmup_rounds:
-                if player1_action == player2_action:
-                    draw_count += 1
-                elif player1_action == ROCK:
-                    if player2_action == SCISSORS:
-                        player1_score += score_weights['rock']
-                    elif player2_action == PAPER:
-                        player2_score += score_weights['paper']
-                elif player1_action == PAPER:
-                    if player2_action == ROCK:
-                        player1_score += score_weights['paper']
-                    elif player2_action == SCISSORS:
-                        player2_score += score_weights['scissors']
-                elif player1_action == SCISSORS:
-                    if player2_action == PAPER:
-                        player1_score += score_weights['scissors']
-                    elif player2_action == ROCK:
-                        player2_score += score_weights['rock']
-            last_player1_action = player1_action
-            last_player2_action = player2_action
-        combined_score += player1_score - player2_score
+        combined_score += evaluate(player1, player2, asymmetric_weights)
     return torch.tensor(combined_score)
 
 
