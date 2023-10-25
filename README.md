@@ -58,8 +58,7 @@ and navigate to [http://localhost:8080/](http://localhost:8080/).
 
 <img src="images/web-app.png" height="400">
 
-
-You can customize the evolutionary parameters and neural network architectures in `config.py` and `players.py`, respectively.
+__**Online demo [here](http://146.190.12.216:8080/).**__
 
 ## Features
 
