@@ -15,7 +15,7 @@ This is because if one player chooses the pure random strategy, the other player
 And that in turn can be countered by whatever beats that choice, etc.. etc.. by removing a simple and stable behavior that (originally) could not be exploited,
 that dead end attractor is removed from the [fitness landscape](https://en.wikipedia.org/wiki/Fitness_landscape).
 
-An example of improved fitness over 1000 generations vs Iocaine Powder and asymmetric rewards:
+An example of improved fitness over 2000 generations vs Iocaine Powder and asymmetric rewards:
 
 <img src="images/fitness-over-time.png" width="250" height="250">
 
