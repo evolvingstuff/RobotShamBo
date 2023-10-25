@@ -16,12 +16,18 @@ SCISSORS = 2
 # mean_eval | pop_best_eval | median_eval | best_eval | worst_eval
 visualization_metric = 'median_eval'
 hidden_dim = 25
-champion_type = 'center'  # 'best'
+champion_type = 'center'  # 'best' | center
 
 # allows the introduction of asymmetries that destabilize
 #  the trivial always-random strategy
-score_weights = {
+asymmetric_weights = {
     'rock': 2.0,
+    'paper': 1.0,
+    'scissors': 1.0
+}
+
+balanced_weights = {
+    'rock': 1.0,
     'paper': 1.0,
     'scissors': 1.0
 }
