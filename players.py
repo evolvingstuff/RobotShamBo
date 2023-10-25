@@ -36,12 +36,12 @@ class RandomStrategyChangePlayer(Player):
         return self.choice
 
 
-class RotatingPlayer(Player):
+class RoundRobinPlayer(Player):
     """
     Rock, paper, scissors, rock, paper, scissors, ...
     """
     def __init__(self):
-        self.round_num = 0
+        self.round_num = random.randint(0, 2)
 
     def move(self, last_opponent_action):
         choice = self.round_num % 3
