@@ -5,7 +5,11 @@ from config import champion_type
 
 
 def load_champion():
-    path = sorted(glob.glob('data/*.pickle'))[-1]
+    saved = sorted(glob.glob('data/*.pickle'))
+    if len(saved) == 0:
+        path = 'sample_agent.pickle'
+    else:
+        path = saved[-1]
     with open(path, 'rb') as f:
         solution = pickle.load(f)
     x = solution[champion_type]
