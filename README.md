@@ -42,12 +42,6 @@ To run the main program (the evolutionary loop):
 python main.py
 ```
 
-To play against the evolved champion in the CLI:
-
-```
-python simulate_cli.py
-```
-
 To play against the evolved champion in a web app:
 
 ```
@@ -58,13 +52,12 @@ and navigate to [http://localhost:8080/](http://localhost:8080/).
 
 <img src="images/web-app.png" width="400">
 
-__**Online demo [here](http://146.190.12.216:8080/).**__
+__**You can try out an online demo [here](http://146.190.12.216:8080/).**__
 
 ## Features
 
 - [x] **Evolutionary Algorithms**: Use evolutionary algorithms (currently configured with SNES) to evolve optimal decision-making strategies.
 - [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add Transformers, CNNs, etc..)
-- [x] **Simulation CLI**: Interactive mode to play against the evolved champion in the CLI.
 - [x] **Simulation web app**: Interactive mode to play against the evolved champion in the browser.
 
 
