@@ -261,3 +261,59 @@ class RnnRng(Player):
             self.my_last_action[choice] = 1.0
             assert 0 <= choice <= 2, f'invalid choice {choice}'
             return choice
+
+
+class RnnPlusRandomActionOption(Player):
+    """
+    Similar to Rnn, but with threshold option to choose purely random play
+    """
+    def __init__(self):
+        self.x = None
+        self.input_dim = 7
+        self.output_dim = 4
+        self.hidden_dim = hidden_dim
+        self.batch_size = 1
+        self.rnn = torch.nn.LSTMCell(self.input_dim, self.hidden_dim)
+        self.readout = torch.nn.Linear(self.hidden_dim, self.output_dim)
+        self.h = torch.zeros(self.batch_size, self.hidden_dim)
+        self.c = torch.zeros(self.batch_size, self.hidden_dim)
+        self.my_last_action = torch.zeros(self.output_dim)
+        self.rnn.eval()
+        self.readout.eval()
+
+    def get_dim(self):
+        p1 = sum(p.numel() for p in self.rnn.parameters())
+        p2 = sum(p.numel() for p in self.readout.parameters())
+        return p1 + p2
+
+    def set_parameters(self, x: torch.Tensor):
+        pointer = 0
+        for param in self.rnn.parameters():
+            num_elements = param.numel()
+            param_vector = x[pointer:pointer + num_elements]
+            param.data = param_vector.view(param.shape)
+            pointer += num_elements
+        for param in self.readout.parameters():
+            num_elements = param.numel()
+            param_vector = x[pointer:pointer + num_elements]
+            param.data = param_vector.view(param.shape)
+            pointer += num_elements
+
+    def move(self, last_opponent_action: int):
+        with torch.no_grad():
+            op = torch.zeros(3)
+            if last_opponent_action is not None:
+                op[last_opponent_action] = 1.0
+            x = torch.hstack((op, self.my_last_action)).reshape((self.batch_size, -1))
+            self.h, self.c = self.rnn(x, (self.h, self.c))
+            output = self.readout(self.h)
+            randomize = output[:, 0].item()
+            self.my_last_action = torch.zeros(4)
+            if randomize > 0.0:
+                choice = random.randint(0, 2)
+                self.my_last_action[0] = 1.0  # indicate we chose random action
+            else:
+                choice = output[:, 1:].argmax().item()
+            self.my_last_action[choice+1] = 1.0  # offset by 1 for extra input
+            assert 0 <= choice <= 2, f'invalid choice {choice}'
+            return choice
