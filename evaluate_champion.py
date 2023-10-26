@@ -5,15 +5,15 @@ import statistics
 
 
 def main():
-    print('Evaluate current champion vs Iocaine symmetric rewards')
+    print('Evaluate current champion vs Iocaine using symmetric rewards')
     scores = []
-    rounds = 1000
-    for round in range(rounds):
+    for game in range(evaluation_games):
         player1 = load_champion()
         player2 = Iocaine()
-        score = evaluate(player1, player2, balanced_weights)
+        weights = balanced_weights  # instead of asymmetric
+        score = evaluate(player1, player2, weights, total_rounds)
         scores.append(score)
-        print(f'round {round+1}/{rounds}: mean score = {statistics.mean(scores):.4f} | median score = {statistics.median(scores):.4f}')
+        print(f'game {game+1}/{evaluation_games}: mean score = {statistics.mean(scores):.4f} | median score = {statistics.median(scores):.4f}')
 
 
 if __name__ == '__main__':
