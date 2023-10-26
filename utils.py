@@ -20,13 +20,13 @@ def load_champion():
     return champion
 
 
-def evaluate(player1, player2, weights):
+def evaluate(player1, player2, weights, rounds):
     player1_score = 0
     player2_score = 0
     draw_count = 0
     last_player1_action = None
     last_player2_action = None
-    for round_num in range(total_rounds):
+    for round_num in range(rounds):
         player1_action = player1.move(last_player2_action)
         player2_action = player2.move(last_player1_action)
         last_player1_action = player1_action
