@@ -39,16 +39,21 @@ def play_rps(player_choice):
         user_id = str(uuid.uuid4())
         s['user_id'] = user_id
         s['ai'] = load_champion()
+        s['previous_player_choice'] = None
         s.save()
 
     # Retrieve the AI instance from the session
     user_ai = s['ai']
+    previous_player_choice = s['previous_player_choice']
 
     if player_choice not in ["rock", "paper", "scissors"]:
         response.status = 400
         return {"error": "Invalid choice"}
-
-    ai_choice_id = user_ai.move(choice_to_id[player_choice])
+    if previous_player_choice is None:
+        ai_choice_id = user_ai.move(None)
+    else:
+        ai_choice_id = user_ai.move(choice_to_id[previous_player_choice])
+    s['previous_player_choice'] = player_choice
     return {
         "ai_choice": id_to_choice[ai_choice_id]
     }
