@@ -50,6 +50,21 @@ class RoundRobinPlayer(RpsAgent):
         return self.choice
 
 
+class ReverseRoundRobinDoubleTapPlayer(RpsAgent):
+    """
+    Rock, rock, scissors, scissors, paper, paper, ...
+    """
+    def __init__(self):
+        self.random_offset = random.randint(0, 5)
+        self.pattern = [0, 0, 2, 2, 1, 1]
+        self.round_num = 0
+
+    def move(self, last_opponent_action):
+        choice = self.pattern[(self.round_num + self.random_offset)% len(self.pattern)]
+        self.round_num += 1
+        return choice
+
+
 class RandomPlayer(RpsAgent):
     """
     The classic Nash equilibrium strategy that cannot be exploited

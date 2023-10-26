@@ -1,4 +1,5 @@
 from src.iocaine import Iocaine
+from src.players import *
 from src.utils import load_champion, evaluate
 from config.config import evaluation_games, balanced_weights, total_rounds
 import statistics
