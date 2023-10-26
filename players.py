@@ -41,12 +41,13 @@ class RoundRobinPlayer(Player):
     Rock, paper, scissors, rock, paper, scissors, ...
     """
     def __init__(self):
-        self.round_num = random.randint(0, 2)
+        self.choice = random.randint(0, 2)
+        self.update_rule = random.choice([-1, 1])
 
     def move(self, last_opponent_action):
-        choice = self.round_num % 3
-        self.round_num += 1
-        return choice
+        self.choice += self.update_rule  # be able to cycle both directions
+        self.choice = self.choice % 3
+        return self.choice
 
 
 class RandomPlayer(Player):
