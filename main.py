@@ -18,7 +18,8 @@ def tournament(x: torch.Tensor) -> torch.Tensor:
             torch.manual_seed(seed)
         player1 = player1_class()
         player1.set_parameters(x)
-        combined_score += evaluate(player1, player2, asymmetric_weights)
+        weights = asymmetric_weights if use_asymmetric_weights_during_evolution else balanced_weights
+        combined_score += evaluate(player1, player2, weights, total_rounds)
     return torch.tensor(combined_score)
 
 
