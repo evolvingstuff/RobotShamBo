@@ -6,7 +6,7 @@ player1_class = Rnn
 
 opponent_classes = [
     Iocaine,
+    # RoundRobinPlayer
     # RandomPlayer,
-    # RotatingPlayer,
     # RandomStrategyChangePlayer
 ]
