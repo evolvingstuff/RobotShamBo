@@ -1,8 +1,8 @@
 from bottle import Bottle, request, response, static_file, run
 from beaker.middleware import SessionMiddleware
 import uuid
-from utils import load_champion
-from config import choice_to_id, id_to_choice
+from src.utils import load_champion
+from config.config import choice_to_id, id_to_choice
 
 app = Bottle()
 

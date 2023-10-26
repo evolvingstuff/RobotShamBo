@@ -2,8 +2,9 @@ from evotorch import Problem
 from evotorch.algorithms import SNES
 from evotorch.logging import StdOutLogger, PandasLogger, PicklingLogger
 import matplotlib.pyplot as plt
-from config_agent import *
-from utils import evaluate
+from config.config_agents import *
+from config.config import *
+from src.utils import evaluate
 
 
 def tournament(x: torch.Tensor) -> torch.Tensor:

@@ -1,13 +1,13 @@
 import glob
 import pickle
-from config_agent import player1_class
-from config import *
+from config.config_agents import player1_class
+from config.config import champion_type, warmup_rounds, ROCK, PAPER, SCISSORS
 
 
 def load_champion():
     saved = sorted(glob.glob('data/*.pickle'))
     if len(saved) == 0:
-        path = 'sample_agent.pickle'
+        path = 'pretrained/sample_rnn_agent.pickle'
     else:
         path = saved[-1]
     with open(path, 'rb') as f:

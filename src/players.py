@@ -2,16 +2,16 @@ import random
 from abc import ABC, abstractmethod
 import torch
 import torch.nn.functional as F
-from config import *
+from config.config import hidden_dim, allow_model_rng_access
 
 
-class Player(ABC):
+class RpsAgent(ABC):
     @abstractmethod
     def move(self, last_opponent_action: int) -> int:
         pass
 
 
-class ConstantPlayer(Player):
+class ConstantPlayer(RpsAgent):
     """
     Always play same move
     """
@@ -22,7 +22,7 @@ class ConstantPlayer(Player):
         return self.constant_choice
 
 
-class RandomStrategyChangePlayer(Player):
+class RandomStrategyChangePlayer(RpsAgent):
     """
     Switches strategy with probability p
     """
@@ -36,7 +36,7 @@ class RandomStrategyChangePlayer(Player):
         return self.choice
 
 
-class RoundRobinPlayer(Player):
+class RoundRobinPlayer(RpsAgent):
     """
     Rock, paper, scissors, rock, paper, scissors, ...
     """
@@ -50,7 +50,7 @@ class RoundRobinPlayer(Player):
         return self.choice
 
 
-class RandomPlayer(Player):
+class RandomPlayer(RpsAgent):
     """
     The classic Nash equilibrium strategy that cannot be exploited
     if we assume symmetrical rewards.
@@ -59,7 +59,7 @@ class RandomPlayer(Player):
         return random.randint(0, 2)
 
 
-class BiasedRandomPlayer(Player):
+class BiasedRandomPlayer(RpsAgent):
     """
     Similar to the RandomPlayer, but can learn to stochastically favor
     certain actions more than others
@@ -79,7 +79,7 @@ class BiasedRandomPlayer(Player):
         return choice
 
 
-class Rnn(Player):
+class Rnn(RpsAgent):
     """
     A very simple one layer LSTM with a (configurable) argmax or softmax
     readout function to make the choice.
@@ -134,7 +134,7 @@ class Rnn(Player):
             return choice
 
 
-class RnnMeta(Player):
+class RnnMeta(RpsAgent):
     """
     This extends the simpler Rnn model with the ability to specify "meta" levels,
     akin to what the Iocaine Powder strategy does.
@@ -207,7 +207,7 @@ class RnnMeta(Player):
             return meta_shifted_choice
 
 
-class RnnRng(Player):
+class RnnRng(RpsAgent):
     """
     Similar to the basic Rnn, but with the addition of input from a
     random number generator
@@ -263,7 +263,7 @@ class RnnRng(Player):
             return choice
 
 
-class RnnPlusRandomActionOption(Player):
+class RnnPlusRandomActionOption(RpsAgent):
     """
     Similar to Rnn, but with threshold option to choose purely random play
     """

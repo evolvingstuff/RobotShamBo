@@ -1,6 +1,6 @@
-from iocaine import Iocaine
-from utils import *
-from players import *
+from src.iocaine import Iocaine
+from src.utils import load_champion, evaluate
+from config.config import evaluation_games, balanced_weights, total_rounds
 import statistics
 
 

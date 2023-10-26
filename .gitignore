@@ -1,5 +1,5 @@
 .idea/*
 venv/*
 TODO.txt
-__pycache__/*
+*/__pycache__/*
 data/*.pickle
