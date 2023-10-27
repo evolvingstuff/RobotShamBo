@@ -11,6 +11,7 @@ def main():
     for game in range(evaluation_games):
         player1 = load_champion()
         player2 = Iocaine()
+        # player2 = ReverseRoundRobinDoubleTapPlayer()
         weights = balanced_weights  # instead of asymmetric
         score = evaluate(player1, player2, weights, total_rounds)
         scores.append(score)
