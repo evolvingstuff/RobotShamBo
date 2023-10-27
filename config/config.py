@@ -1,6 +1,4 @@
-seed = 1234
-evotorch_seed = 1234
-deterministic_matches = False
+distributed = True
 allow_model_rng_access = False
 warmup_rounds = 0
 evaluation_games = 1000

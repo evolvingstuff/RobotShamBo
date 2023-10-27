@@ -14,9 +14,6 @@ def tournament(x: torch.Tensor) -> torch.Tensor:
     combined_score = 0
     for player2_class in opponent_classes:
         player2 = player2_class()
-        if deterministic_matches:
-            random.seed(seed)
-            torch.manual_seed(seed)
         player1 = player1_class()
         player1.set_parameters(x)
         weights = asymmetric_weights if use_asymmetric_weights_during_evolution else balanced_weights
@@ -31,22 +28,20 @@ def main():
 
     print('Robotshambo')
 
-    random.seed(seed)
-    torch.manual_seed(seed)
-
     # Assumes only player1 is being evolved
     dim = player1_class().get_dim()
 
     # Declare the objective function
-    problem = Problem(
-        "max",
-        tournament,
-        initial_bounds=(-initial_bounds, initial_bounds),
-        solution_length=dim,
-        vectorized=False,
-        seed=evotorch_seed
-        # device="cuda:0"  # enable this line if you wish to use GPU
-    )
+    args = ['max', tournament]
+    kwargs = {
+        'initial_bounds': (-initial_bounds, initial_bounds),
+        'solution_length': dim,
+        'vectorized': False
+        # device="cuda:0"  # enable this if you wish to use GPU
+    }
+    if distributed:
+        kwargs['num_actors'] = 'max'
+    problem = Problem(*args, **kwargs)
 
     # Initialize the SNES algorithm to solve the problem
     searcher = SNES(problem, popsize=popsize, stdev_init=stdev_init)
