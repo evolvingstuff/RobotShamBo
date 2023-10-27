@@ -59,7 +59,7 @@ __**You can try out an online demo [here](http://146.190.12.216:8080/).**__
 - [x] **Evolutionary Algorithms**: Use evolutionary algorithms (currently configured with SNES) to evolve optimal decision-making strategies.
 - [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add Transformers, CNNs, etc..)
 - [x] **Simulation web app**: Interactive mode to play against the evolved champion in the browser.
-- [x] **[Enable Multi-core/distributed](https://docs.evotorch.ai/v0.4.1/advanced_usage/dist_based/)**
+- [x] **Enable multicore/distributed**: Described [here](https://docs.evotorch.ai/v0.4.1/advanced_usage/dist_based/).
 
 
 ## TODO
