@@ -11,6 +11,24 @@ class RpsAgent(ABC):
         pass
 
 
+def set_parameters_generic(x: torch.Tensor, parameter_groups):
+    pointer = 0
+    for parameter_group in parameter_groups:
+        for param in parameter_group.parameters():
+            num_elements = param.numel()
+            param_vector = x[pointer:pointer + num_elements]
+            param.data = param_vector.view(param.shape)
+            pointer += num_elements
+    assert len(x) == pointer, 'mismatch'
+
+
+def get_dim_generic(parameter_groups):
+    total = 0
+    for parameter_group in parameter_groups:
+        total += sum(p.numel() for p in parameter_group.parameters())
+    return total
+
+
 class ConstantPlayer(RpsAgent):
     """
     Always play same move
@@ -113,22 +131,10 @@ class Rnn(RpsAgent):
         self.readout.eval()
 
     def get_dim(self):
-        p1 = sum(p.numel() for p in self.rnn.parameters())
-        p2 = sum(p.numel() for p in self.readout.parameters())
-        return p1 + p2
+        return get_dim_generic([self.rnn, self.readout])
 
     def set_parameters(self, x: torch.Tensor):
-        pointer = 0
-        for param in self.rnn.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
-        for param in self.readout.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
+        set_parameters_generic(x, [self.rnn, self.readout])
 
     def move(self, last_opponent_action: int):
         with torch.no_grad():
@@ -172,28 +178,10 @@ class RnnMeta(RpsAgent):
         self.readout.eval()
 
     def get_dim(self):
-        p1 = sum(p.numel() for p in self.rnn.parameters())
-        p2 = sum(p.numel() for p in self.readout.parameters())
-        p3 = sum(p.numel() for p in self.meta_shift.parameters())
-        return p1 + p2 + p3
+        return get_dim_generic([self.rnn, self.readout, self.meta_shift])
 
     def set_parameters(self, x: torch.Tensor):
-        pointer = 0
-        for param in self.rnn.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
-        for param in self.readout.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
-        for param in self.meta_shift.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
+        set_parameters_generic(x, [self.rnn, self.readout, self.meta_shift])
 
     def move(self, last_opponent_action: int):
         with torch.no_grad():
@@ -241,22 +229,10 @@ class RnnRng(RpsAgent):
         self.readout.eval()
 
     def get_dim(self):
-        p1 = sum(p.numel() for p in self.rnn.parameters())
-        p2 = sum(p.numel() for p in self.readout.parameters())
-        return p1 + p2
+        return get_dim_generic([self.rnn, self.readout])
 
     def set_parameters(self, x: torch.Tensor):
-        pointer = 0
-        for param in self.rnn.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
-        for param in self.readout.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
+        set_parameters_generic(x, [self.rnn, self.readout])
 
     def move(self, last_opponent_action: int):
         with torch.no_grad():
@@ -297,22 +273,10 @@ class RnnPlusRandomActionOption(RpsAgent):
         self.readout.eval()
 
     def get_dim(self):
-        p1 = sum(p.numel() for p in self.rnn.parameters())
-        p2 = sum(p.numel() for p in self.readout.parameters())
-        return p1 + p2
+        return get_dim_generic([self.rnn, self.readout])
 
     def set_parameters(self, x: torch.Tensor):
-        pointer = 0
-        for param in self.rnn.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
-        for param in self.readout.parameters():
-            num_elements = param.numel()
-            param_vector = x[pointer:pointer + num_elements]
-            param.data = param_vector.view(param.shape)
-            pointer += num_elements
+        set_parameters_generic(x, [self.rnn, self.readout])
 
     def move(self, last_opponent_action: int):
         with torch.no_grad():

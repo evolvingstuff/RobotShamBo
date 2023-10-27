@@ -1,5 +1,6 @@
 import glob
 import pickle
+import torch
 from config.config_agents import player1_class
 from config.config import champion_type, warmup_rounds, ROCK, PAPER, SCISSORS
 
