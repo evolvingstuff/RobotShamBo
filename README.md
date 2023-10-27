@@ -1,6 +1,6 @@
 # RobotShamBo
 
-<img src="images/robotshambo.png" width="500" height="500">
+<img src="images/robotshambo.png" width="300" height="300">
 
 ## Introduction
 
@@ -14,11 +14,6 @@ So far, it appears that injecting some form of asymmetry in the rewards might he
 This is because if one player chooses the pure random strategy, the other player can beat it by always playing the choice with the highest reward.
 And that in turn can be countered by whatever beats that choice, etc.. etc.. by removing a simple and stable behavior that (originally) could not be exploited,
 that dead end attractor is removed from the [fitness landscape](https://en.wikipedia.org/wiki/Fitness_landscape).
-
-An example of improved fitness over 2000 generations vs Iocaine Powder and asymmetric rewards:
-
-<img src="images/fitness-over-time.png" width="250" height="250">
-
 ## Installation
 
 Clone the repository:
@@ -59,14 +54,12 @@ __**You can try out an online demo [here](http://146.190.12.216:8080/).**__
 - [x] **Evolutionary Algorithms**: Use evolutionary algorithms (currently configured with SNES) to evolve optimal decision-making strategies.
 - [x] **Neural Networks**: Utilize various architectures (currently LSTM, but plan to add Transformers, CNNs, etc..)
 - [x] **Simulation web app**: Interactive mode to play against the evolved champion in the browser.
-- [x] **Enable multicore/distributed**: Described [here](https://docs.evotorch.ai/v0.4.1/advanced_usage/dist_based/).
+- [x] **Visualizion tools**: Chart fitness over time and parameter distributions.
 
 
-## TODO
+## Future Directions
 
-- [ ] **Reinforcement Learning**: Train agents using popular RL algorithms like Q-Learning and DQN.
-- [ ] **Visualization**: Tools for visualizing decision-making strategies and their evolution over time.
-
+I have a number of ideas for future features and experiments, described in [project ideas](docs/project-ideas.md).
 
 ## Libraries Used
 
