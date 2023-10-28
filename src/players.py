@@ -296,3 +296,48 @@ class RnnPlusRandomActionOption(RpsAgent):
             self.my_last_action[choice+1] = 1.0  # offset by 1 for extra input
             assert 0 <= choice <= 2, f'invalid choice {choice}'
             return choice
+
+
+class RnnPlusSkipLayer(RpsAgent):
+    """
+    Same as Rnn model, but with additional linear layer connecting
+    input to output directly
+    """
+    def __init__(self):
+        self.x = None
+        self.input_dim = 6
+        self.hidden_dim = hidden_dim
+        self.output_dim = 3
+        self.batch_size = 1
+        self.rnn = torch.nn.LSTMCell(self.input_dim, self.hidden_dim)
+        self.readout = torch.nn.Linear(self.hidden_dim, self.output_dim)
+        self.skip = torch.nn.Linear(self.input_dim, self.output_dim)
+        self.h = torch.zeros(self.batch_size, self.hidden_dim)
+        self.c = torch.zeros(self.batch_size, self.hidden_dim)
+        self.my_last_action = torch.zeros(self.output_dim)
+        self.rnn.eval()
+        self.readout.eval()
+
+    def get_dim(self):
+        return get_dim_generic([self.rnn, self.skip, self.readout])
+
+    def set_parameters(self, x: torch.Tensor):
+        set_parameters_generic(x, [self.rnn, self.skip, self.readout])
+
+    def move(self, last_opponent_action: int):
+        with torch.no_grad():
+            op = torch.zeros(3)
+            if last_opponent_action is not None:
+                op[last_opponent_action] = 1.0
+            x = torch.hstack((op, self.my_last_action)).reshape((self.batch_size, -1))
+            self.h, self.c = self.rnn(x, (self.h, self.c))
+            output = self.readout(self.h) + self.skip(x)
+            if allow_model_rng_access:
+                softmax_output = F.softmax(output)
+                choice = torch.multinomial(softmax_output, 1).item()
+            else:
+                choice = output.argmax().item()
+            self.my_last_action = torch.zeros(3)
+            self.my_last_action[choice] = 1.0
+            assert 0 <= choice <= 2, f'invalid choice {choice}'
+            return choice
