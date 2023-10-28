@@ -1,14 +1,14 @@
-distributed = True
+distributed = True  # set to false to allow step through debugging
 allow_model_rng_access = False
 warmup_rounds = 0
 evaluation_games = 1000
 total_rounds = 150
 popsize = 250
-generations = 2000
+generations = 5000
 log_interval = 1
 pickle_interval = 5
 stdev_init = 0.5
-initial_bounds = 7.0
+initial_bounds = 1.0
 ROCK = 0
 PAPER = 1
 SCISSORS = 2
@@ -21,7 +21,7 @@ champion_type = 'center'  # 'best' | center
 #  the trivial always-random strategy
 use_asymmetric_weights_during_evolution = True
 asymmetric_weights = {
-    'rock': 2.0,
+    'rock': 1.1,  # 2.0
     'paper': 1.0,
     'scissors': 1.0
 }
