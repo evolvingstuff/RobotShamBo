@@ -14,6 +14,7 @@
   * Could this be a useful medium/input? 
 * If we let evolution go on for a looooong time, do we ever observe things like double descent or grokking take place with generalization?
 * How well would a purely supervised learner do at this?
+* Does CMA-ES outperform SNES on this task?
 
 ## Experiments
 * "Hall of champions" for improved self-play and generality.

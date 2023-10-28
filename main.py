@@ -1,5 +1,5 @@
 from evotorch import Problem
-from evotorch.algorithms import SNES
+from evotorch.algorithms import SNES, PyCMAES
 from evotorch.logging import StdOutLogger, PandasLogger, PicklingLogger
 import matplotlib.pyplot as plt
 from config.config_agents import *
@@ -44,7 +44,8 @@ def main():
     problem = Problem(*args, **kwargs)
 
     # Initialize the SNES algorithm to solve the problem
-    searcher = SNES(problem, popsize=popsize, stdev_init=stdev_init)
+    # searcher = SNES(problem, popsize=popsize, stdev_init=stdev_init, distributed=distributed)
+    searcher = PyCMAES(problem, popsize=popsize, stdev_init=stdev_init)
 
     # Initialize loggers
     _ = StdOutLogger(searcher, interval=log_interval)
