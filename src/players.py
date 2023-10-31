@@ -1,14 +1,7 @@
 import random
-from abc import ABC, abstractmethod
 import torch
 import torch.nn.functional as F
 from config.config import hidden_dim, allow_model_rng_access
-
-
-class RpsAgent(ABC):
-    @abstractmethod
-    def move(self, last_opponent_action: int) -> int:
-        pass
 
 
 def set_parameters_generic(x: torch.Tensor, parameter_groups):
@@ -29,7 +22,7 @@ def get_dim_generic(parameter_groups):
     return total
 
 
-class ConstantPlayer(RpsAgent):
+class ConstantPlayer():
     """
     Always play same move
     """
@@ -40,7 +33,7 @@ class ConstantPlayer(RpsAgent):
         return self.constant_choice
 
 
-class RandomStrategyChangePlayer(RpsAgent):
+class RandomStrategyChangePlayer():
     """
     Switches strategy with probability p
     """
@@ -54,7 +47,7 @@ class RandomStrategyChangePlayer(RpsAgent):
         return self.choice
 
 
-class RoundRobinPlayer(RpsAgent):
+class RoundRobinPlayer():
     """
     Rock, paper, scissors, rock, paper, scissors, ...
     """
@@ -68,7 +61,7 @@ class RoundRobinPlayer(RpsAgent):
         return self.choice
 
 
-class ReverseRoundRobinDoubleTapPlayer(RpsAgent):
+class ReverseRoundRobinDoubleTapPlayer():
     """
     Rock, rock, scissors, scissors, paper, paper, ...
     """
@@ -83,7 +76,7 @@ class ReverseRoundRobinDoubleTapPlayer(RpsAgent):
         return choice
 
 
-class RandomPlayer(RpsAgent):
+class RandomPlayer():
     """
     The classic Nash equilibrium strategy that cannot be exploited
     if we assume symmetrical rewards.
@@ -92,7 +85,7 @@ class RandomPlayer(RpsAgent):
         return random.randint(0, 2)
 
 
-class BiasedRandomPlayer(RpsAgent):
+class BiasedRandomPlayer():
     """
     Similar to the RandomPlayer, but can learn to stochastically favor
     certain actions more than others
@@ -112,7 +105,7 @@ class BiasedRandomPlayer(RpsAgent):
         return choice
 
 
-class Rnn(RpsAgent):
+class Rnn():
     """
     A very simple one layer LSTM with a (configurable) argmax or softmax
     readout function to make the choice.
@@ -155,7 +148,7 @@ class Rnn(RpsAgent):
             return choice
 
 
-class RnnMeta(RpsAgent):
+class RnnMeta():
     """
     This extends the simpler Rnn model with the ability to specify "meta" levels,
     akin to what the Iocaine Powder strategy does.
@@ -210,7 +203,7 @@ class RnnMeta(RpsAgent):
             return meta_shifted_choice
 
 
-class RnnRng(RpsAgent):
+class RnnRng():
     """
     Similar to the basic Rnn, but with the addition of input from a
     random number generator
@@ -254,7 +247,7 @@ class RnnRng(RpsAgent):
             return choice
 
 
-class RnnPlusRandomActionOption(RpsAgent):
+class RnnPlusRandomActionOption():
     """
     Similar to Rnn, but with threshold option to choose purely random play
     """
@@ -298,7 +291,7 @@ class RnnPlusRandomActionOption(RpsAgent):
             return choice
 
 
-class RnnPlusSkipLayer(RpsAgent):
+class RnnPlusSkipLayer():
     """
     Same as Rnn model, but with additional linear layer connecting
     input to output directly
