@@ -7,10 +7,9 @@ Description: This slightly modified code makes use of the Iocaine Powder algorit
 '''
 
 import random
-from src.players import RpsAgent
 
 
-class Iocaine(RpsAgent):
+class Iocaine():
 
     class Stats:
         """Maintains three running counts and returns the highest count based
