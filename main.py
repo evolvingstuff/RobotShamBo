@@ -1,8 +1,9 @@
 from evotorch import Problem
+import torch
 from evotorch.algorithms import SNES, PyCMAES
 from evotorch.logging import StdOutLogger, PandasLogger, PicklingLogger
 import matplotlib.pyplot as plt
-from config.config_agents import *
+from config.config_agents import player1_class, opponent_classes
 from config.config import *
 from src.utils import evaluate
 
