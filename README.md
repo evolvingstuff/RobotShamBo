@@ -47,8 +47,6 @@ and navigate to [http://localhost:8080/](http://localhost:8080/).
 
 <img src="images/web-app.png" width="400">
 
-__**You can try out an online demo [here](http://146.190.12.216:8080/).**__
-
 ## Features
 
 - [x] **Evolutionary Algorithms**: Use evolutionary algorithms (currently configured with SNES) to evolve optimal decision-making strategies.

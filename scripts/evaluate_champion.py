@@ -1,5 +1,5 @@
 from src.iocaine import Iocaine
-from src.players import *
+from src.simple_opponents import ReverseRoundRobinDoubleTapOpponent
 from src.utils import load_champion, evaluate
 from config.config import evaluation_games, balanced_weights, total_rounds
 import statistics
@@ -11,7 +11,7 @@ def main():
     for game in range(evaluation_games):
         player1 = load_champion()
         player2 = Iocaine()
-        # player2 = ReverseRoundRobinDoubleTapPlayer()
+        # player2 = ReverseRoundRobinDoubleTapOpponent()
         weights = balanced_weights  # instead of asymmetric
         score = evaluate(player1, player2, weights, total_rounds)
         scores.append(score)
